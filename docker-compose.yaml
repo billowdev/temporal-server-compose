@@ -17,26 +17,26 @@ services:
       - 9200
     volumes:
       - /var/lib/elasticsearch/data
-#  postgresql:
-#    container_name: temporal-postgresql
-#    environment:
-#      POSTGRES_PASSWORD: temporal
-#      POSTGRES_USER: temporal
-#    image: postgres:${POSTGRESQL_VERSION}
-#    networks:
-#      - temporal-network
-#    expose:
-#      - ${DB_PORT}
-#    volumes:
-#      - /var/lib/postgresql/data
+  # postgresql:
+  #   container_name: temporal-postgresql
+  #   environment:
+  #     POSTGRES_PASSWORD: temporal
+  #     POSTGRES_USER: temporal
+  #   image: postgres:${POSTGRESQL_VERSION}
+  #   networks:
+  #     - temporal-network
+  #   expose:
+  #     - ${DB_PORT}
+  #   volumes:
+  #     - /var/lib/postgresql/data
   temporal:
     container_name: temporal
     depends_on:
-#      - postgresql
+      # - postgresql
       - elasticsearch
-#      - postgres_db
     environment:
-      - DB=postgresql
+      - DB=postgres12
+      - POSTGRES_NAME=${TEMPORAL_DB_NAME}
       - DB_PORT=${TEMPORAL_DB_PORT}
       - POSTGRES_USER=${TEMPORAL_POSTGRES_USER}
       - POSTGRES_PWD=${TEMPORAL_POSTGRES_PWD}
